@@ -18,6 +18,61 @@ export const HabbitsMainContent = styled.div`
     position: relative;
     top: 30px;
   }
+
+  .habbits-to-track {
+    width: 320px;
+    height: 91px;
+    background: #ffffff;
+    border-radius: 5px;
+
+    padding: 13px;
+
+    margin: 15px;
+  }
+  .habbits-to-track span {
+    position: relative;
+    top: 11px;
+    right: 10px;
+    width: 300px;
+    margin-left: 10px;
+
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+
+    color: #666666;
+  }
+  button {
+    width: 30px;
+    height: 30px;
+
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    box-sizing: border-box;
+    border-radius: 5px;
+
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19.976px;
+    line-height: 25px;
+
+    color: #dbdbdb;
+  }
+  .button-selecionado {
+    background: #cfcfcf;
+    color: #ffffff;
+  }
+  .buttons-habbits-totrack {
+    position: relative;
+    top: 40px;
+  }
+  .habbits-to-track-img {
+    position: relative;
+    top: 0px;
+    left: 245px;
+  }
 `;
 
 export const Loading = styled.div`
@@ -128,6 +183,10 @@ export const InputNewHabbits = styled.div`
 
     color: #ffffff;
   }
+  .button-selecionado {
+    background: #cfcfcf;
+    color: #ffffff;
+  }
 `;
 
 export const NavHabbits = styled.nav`
@@ -190,3 +249,38 @@ export const AddNewHabbit = styled.div`
 `;
 
 export const MenuHabbits = styled.div``;
+
+export const FooterMenuHabbits = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 375px;
+  height: 70px;
+  bottom: 0px;
+
+  background: #ffffff;
+  .sizeProgressBar {
+    width: 91px;
+    height: 91px;
+    padding: 0px 10px 35px 10px;
+  }
+  button {
+    background: inherit;
+
+    border: none;
+    outline: none;
+
+    width: 84px;
+    height: 35px;
+    font-family: "Lexend Deca";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15.976px;
+    line-height: 20px;
+
+    text-align: center;
+
+    color: #52b6ff;
+  }
+`;

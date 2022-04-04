@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const LoginContent = styled.div`
   display: flex;
@@ -8,7 +8,7 @@ export const LoginContent = styled.div`
   align-items: center;
   p {
     margin-top: 25px;
-    font-family: 'Lexend Deca';
+    font-family: "Lexend Deca";
     font-style: normal;
     font-weight: 400;
     font-size: 13.976px;
@@ -20,9 +20,11 @@ export const LoginContent = styled.div`
 `;
 export const LogoLogin = styled.img``;
 export const LoginForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
   input {
     padding-left: 12px;
     margin-bottom: 6px;
@@ -36,7 +38,7 @@ export const LoginForm = styled.div`
     border-radius: 5px;
   }
   input::placeholder {
-    font-family: 'Lexend Deca';
+    font-family: "Lexend Deca";
     font-style: normal;
     font-weight: 400;
     font-size: 19.976px;
@@ -54,7 +56,7 @@ export const LoginForm = styled.div`
     background: #52b6ff;
     border-radius: 4.63636px;
 
-    font-family: 'Lexend Deca';
+    font-family: "Lexend Deca";
     font-style: normal;
     font-weight: 400;
     font-size: 20.976px;

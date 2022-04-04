@@ -8,27 +8,27 @@ import UserContext from "../../components/ContextApi";
 import axios from "axios";
 
 export default function SingIn() {
-  const { setToken, setPerfilPhoto } = useContext(UserContext);
   let [emaiLogin, setEmailLogin] = useState("");
   let [senhaLogin, setSenhaLogin] = useState("");
   let [disable, setDisable] = useState(false);
   let navigate = useNavigate();
 
-  function loginTrackIt() {
+  function loginTrackIt(e) {
+    e.preventDefault();
+    setDisable(true);
     let promisse = axios.post(
       "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
       { email: emaiLogin, password: senhaLogin }
     );
 
     promisse.then((element) => {
-      setDisable(true);
-      setToken(element.data.token);
-      setPerfilPhoto(element.data.image)
+      localStorage.setItem("token", `${element.data.token}`);
+      localStorage.setItem("perfilPhoto", `${element.data.image}`);
       navigate("/habitos", { replace: true });
     });
 
-    promisse.catch((element) => {
-      setDisable(false);
+    promisse.catch(() => {
+      alert("Preencha os campos novamente ou recarregue a página");
     });
   }
 
@@ -36,22 +36,24 @@ export default function SingIn() {
     <components.LoginContent>
       <components.LogoLogin src={logo} />
       <components.LoginForm>
-        <input
-          type="text"
-          placeholder="email"
-          onChange={(element) => setEmailLogin(element.target.value)}
-          disabled={disable}
-        />
-        <input
-          type="password"
-          placeholder="senha"
-          onChange={(element) => setSenhaLogin(element.target.value)}
-          disabled={disable}
-        />
+        <form onSubmit={loginTrackIt}>
+          <input
+            type="text"
+            placeholder="email"
+            onChange={(element) => setEmailLogin(element.target.value)}
+            disabled={disable}
+          />
+          <input
+            type="password"
+            placeholder="senha"
+            onChange={(element) => setSenhaLogin(element.target.value)}
+            disabled={disable}
+          />
 
-        <button onClick={loginTrackIt} disabled={disable}>
-          Entrar
-        </button>
+          <button disabled={disable} type="submit">
+            Entrar
+          </button>
+        </form>
       </components.LoginForm>
 
       <Link to="/cadastro">

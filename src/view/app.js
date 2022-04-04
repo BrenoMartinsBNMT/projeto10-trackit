@@ -6,6 +6,7 @@ import { useState } from "react";
 import SingIn from "./SignIn/index";
 import SignUp from "./SignUp/index";
 import Habbits from "./Habbits/index";
+import TodayHabiits from "./Today";
 
 const MainContent = styled.div`
   background: #e5e5e5;
@@ -17,19 +18,15 @@ const MainContent = styled.div`
 `;
 
 export default function App() {
-  let [token, setToken] = useState("");
-  let [perfilPhoto, setPerfilPhoto] = useState();
-
-  let photo = perfilPhoto;
-
   return (
-    <UserContext.Provider value={{ token, setToken, photo, setPerfilPhoto }}>
+    <UserContext.Provider>
       <BrowserRouter>
         <MainContent>
           <Routes>
-            <Route path="/" element={<SingIn />}></Route>
+            <Route path="/" element={<SingIn />} />
             <Route path="/cadastro" element={<SignUp />} />
             <Route path="/habitos" element={<Habbits />} />
+            <Route path="/hoje" element={<TodayHabiits />} />
           </Routes>
         </MainContent>
       </BrowserRouter>
