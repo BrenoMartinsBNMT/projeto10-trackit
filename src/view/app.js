@@ -18,8 +18,10 @@ const MainContent = styled.div`
 `;
 
 export default function App() {
+  let [progressHabbit, setProgressHabbit] = useState(0);
+
   return (
-    <UserContext.Provider>
+    <UserContext.Provider value={{ progressHabbit, setProgressHabbit }}>
       <BrowserRouter>
         <MainContent>
           <Routes>

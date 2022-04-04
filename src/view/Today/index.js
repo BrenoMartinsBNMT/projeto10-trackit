@@ -1,25 +1,105 @@
 import * as components from "./components/componetsToday";
-import { useEffect, useState } from "react";
-import { TailSpin } from "react-loader-spinner";
+
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import dayjs, { Dayjs, isDayjs } from "dayjs";
+import dayjs from "dayjs";
+import { useEffect, useState } from "react";
+
+import ok from "../../components/ok.svg";
+
 //
 
 //
 export default function TodayHabiits() {
-  //
   let token = localStorage.getItem("token");
   let photo = localStorage.getItem("perfilPhoto");
+  let [habbitsToday, setHabbitsToday] = useState("");
+
+  //
+  function setDoHabbit(e) {
+    console.log(e.target.id);
+    let id = e.target.id;
+    let promisse = axios.post(
+      `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    promisse.then((element) => {
+      console.log(element);
+    });
+  }
+  //
+  useEffect(() => {
+    let promisse = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    promisse.then((element) => {
+      console.log(element);
+      setHabbitsToday(element.data);
+    });
+  }, []);
+
+  const daysWeek = [
+    "Domingo",
+    "Segunda",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+  ];
   //
   return (
     <components.MainContentToday>
       <components.NavToday>
         <p>TrackIt</p> <img src={photo} alt="" />
       </components.NavToday>
-      <div>{}</div>
+      <components.ReportToday>
+        <components.TextDate>
+          {`${
+            daysWeek[dayjs().day()]
+          }, 0${dayjs().date()}/0${dayjs().month()} `}
+          {<p className="do-not-habbits">Nenhum hábito concluído ainda</p>}
+        </components.TextDate>
+      </components.ReportToday>
+      <components.DivHabbitsReport>
+        {habbitsToday === "" ? (
+          <></>
+        ) : (
+          habbitsToday.map((element) => {
+            return (
+              <components.ReportIfDoHabbits>
+                <div>
+                  <components.TitleReport>
+                    {element.name}
+                  </components.TitleReport>
+                  <components.CurrentSequence>
+                    Sequência atual: {element.currentSequence} dias
+                  </components.CurrentSequence>
+                  <components.HighestSequence>
+                    Seu recorde: {element.highestSequence} dias
+                  </components.HighestSequence>
+                </div>
+                <button onClick={setDoHabbit} className={element.done}>
+                  <img src={ok} alt="" id={element.id} />
+                </button>
+              </components.ReportIfDoHabbits>
+            );
+          })
+        )}
+      </components.DivHabbitsReport>
+
       <components.FooterMenuToday>
         <Link to="/habitos">
           <button>Hábitos</button>

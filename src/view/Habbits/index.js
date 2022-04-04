@@ -6,10 +6,14 @@ import "react-circular-progressbar/dist/styles.css";
 import axios from "axios";
 import trash from "../../components/trash.svg";
 import { Link } from "react-router-dom";
+import UserContext from "../../components/ContextApi";
+import { useContext } from "react";
 //
 
 //
 export default function Habbits() {
+  let { progressHabbit } = useContext(UserContext);
+
   //
 
   //
@@ -22,7 +26,7 @@ export default function Habbits() {
   let [habbitName, setHabbitName] = useState("");
   let [hasHabbits, setHasHabbits] = useState("");
   let days = ["D", "S", "T", "Q", "Q", "S", "S"];
-  let count = 0;
+
   //
 
   //
@@ -250,7 +254,7 @@ export default function Habbits() {
             <Link to="/hoje">
               <div className="sizeProgressBar">
                 <CircularProgressbar
-                  value={0}
+                  value={progressHabbit}
                   text={"Hoje"}
                   background
                   backgroundPadding={6}
