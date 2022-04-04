@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 
 import ok from "../../components/ok.svg";
 
+import UserContext from "../../components/ContextApi";
+import { useContext } from "react";
+
 //
 
 //
@@ -17,12 +20,14 @@ export default function TodayHabiits() {
   let photo = localStorage.getItem("perfilPhoto");
   let [habbitsToday, setHabbitsToday] = useState("");
 
+  let { progressHabbit } = useContext(UserContext);
   //
   function setDoHabbit(e) {
     console.log(e.target.id);
     let id = e.target.id;
     let promisse = axios.post(
       `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${id}/check`,
+      null,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -30,7 +35,18 @@ export default function TodayHabiits() {
       }
     );
     promisse.then((element) => {
-      console.log(element);
+      let promisse = axios.get(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      promisse.then((element) => {
+        setHabbitsToday(element.data);
+      });
     });
   }
   //
@@ -45,7 +61,6 @@ export default function TodayHabiits() {
     );
 
     promisse.then((element) => {
-      console.log(element);
       setHabbitsToday(element.data);
     });
   }, []);
@@ -91,7 +106,7 @@ export default function TodayHabiits() {
                     Seu recorde: {element.highestSequence} dias
                   </components.HighestSequence>
                 </div>
-                <button onClick={setDoHabbit} className={element.done}>
+                <button onClick={setDoHabbit} className={`${element.done}`}>
                   <img src={ok} alt="" id={element.id} />
                 </button>
               </components.ReportIfDoHabbits>
@@ -107,7 +122,7 @@ export default function TodayHabiits() {
         <Link to="/hoje">
           <div className="sizeProgressBar">
             <CircularProgressbar
-              value={0}
+              value={progressHabbit}
               text={"Hoje"}
               background
               backgroundPadding={6}

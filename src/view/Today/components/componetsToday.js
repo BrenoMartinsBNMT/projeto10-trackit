@@ -75,6 +75,9 @@ export const ReportIfDoHabbits = styled.div`
 
   background: #ffffff;
   border-radius: 5px;
+
+  margin-top: 12px;
+  margin-bottom: 12px;
   div {
     margin-left: 15px;
   }
